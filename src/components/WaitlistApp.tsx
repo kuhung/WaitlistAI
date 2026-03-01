@@ -604,7 +604,7 @@ export default function WaitlistApp() {
           <div className="text-[10px] text-zinc-700 font-mono">
             Build {process.env.NEXT_PUBLIC_GIT_HASH || "dev"} |{" "}
             {process.env.NEXT_PUBLIC_BUILD_TIME
-              ? new Date(process.env.NEXT_PUBLIC_BUILD_TIME).toLocaleDateString()
+              ? new Date(process.env.NEXT_PUBLIC_BUILD_TIME).toLocaleDateString("en-CA")
               : "local"}{" "}
             | You have wasted{" "}
             <span className="text-zinc-500">{formatTime(timeSpent)}</span> here
