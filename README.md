@@ -1,4 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WaitlistAI
+
+WaitlistAI is a satirical, gamified waitlist experience designed to poke fun at the modern tech startup landscape. It features a series of absurd verification steps, including quantum queues, AGI verification, and existential rejection reports.
+
+## Features
+
+- **Quantum Queue**: Experience the uncertainty of waiting in a superposition of states.
+- **AGI Verification**: Prove your humanity (or lack thereof) through a series of increasingly bizarre CAPTCHAs.
+- **Existential Rejection**: Receive detailed, data-driven explanations for why you aren't getting in.
+- **Easter Eggs**: Discover hidden interactions and secrets (try the Konami code!).
+
+## Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com)
+- **Internationalization**: [next-intl](https://next-intl-docs.vercel.app)
+- **Deployment**: [Vercel](https://vercel.com)
 
 ## Getting Started
 
@@ -16,21 +32,16 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is optimized for deployment on Vercel.
 
-## Learn More
+### Git Version Tracking
 
-To learn more about Next.js, take a look at the following resources:
+The application automatically includes Git version information in the footer to help track deployments. This is handled in `next.config.ts` via `execSync` commands during the build process.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ensure your Vercel project has access to the `.git` directory during build, which is standard for Vercel deployments connected to a Git repository.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

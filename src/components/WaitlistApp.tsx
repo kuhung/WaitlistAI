@@ -322,25 +322,25 @@ export default function WaitlistApp() {
             {tHero("badge")}
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
-            <span className="gradient-text">WaitlistAI</span>
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-8 animate-fade-in">
+            <span className="gradient-text drop-shadow-2xl">WaitlistAI</span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-zinc-400 mb-2 max-w-2xl mx-auto">
+          <p className="text-2xl md:text-3xl text-zinc-300 mb-4 max-w-3xl mx-auto font-light leading-relaxed">
             {tHero("tagline")}
           </p>
-          <p className="text-base text-zinc-600 mb-10 max-w-xl mx-auto font-mono">
+          <p className="text-lg text-zinc-500 mb-12 max-w-2xl mx-auto font-mono tracking-wide">
             {tHero("subtitle")}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
             <button
               onClick={handleJoinWaitlist}
-              className="glow-button px-8 py-4 text-lg font-semibold text-white rounded-xl cursor-pointer"
+              className="glow-button px-10 py-5 text-xl font-bold text-white rounded-2xl cursor-pointer shadow-2xl hover:shadow-purple-500/20 transition-all duration-300"
             >
               {tHero("joinWaitlist")}
             </button>
-            <button className="px-8 py-4 text-lg text-zinc-400 border border-white/10 rounded-xl hover:bg-white/5 transition-all cursor-not-allowed">
+            <button className="px-10 py-5 text-xl text-zinc-400 border border-white/10 rounded-2xl hover:bg-white/5 hover:text-white transition-all cursor-not-allowed backdrop-blur-sm">
               {tHero("readPaper")}
             </button>
           </div>
@@ -368,15 +368,15 @@ export default function WaitlistApp() {
           {FEATURE_KEYS.map((feature) => (
             <div
               key={feature.titleKey}
-              className="glass-card glass-card-hover p-6"
+              className="glass-card glass-card-hover p-8 hover:scale-105 hover:border-white/20 transition-all duration-300 group"
             >
-              <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-lg font-mono gradient-text mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-mono gradient-text mb-6 group-hover:bg-white/10 transition-colors">
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">
                 {tFeatures(feature.titleKey)}
               </h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">
+              <p className="text-base text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors">
                 {tFeatures(feature.descKey)}
               </p>
             </div>
@@ -399,18 +399,23 @@ export default function WaitlistApp() {
           {PRICING_TIER_KEYS.map((tier) => (
             <div
               key={tier.nameKey}
-              className={`glass-card p-8 flex flex-col ${
+              className={`glass-card p-8 flex flex-col transition-all duration-300 hover:scale-[1.02] ${
                 "highlighted" in tier && tier.highlighted
-                  ? "border-purple-500/30 bg-purple-500/5 ring-1 ring-purple-500/20"
-                  : ""
+                  ? "border-purple-500/50 bg-purple-500/10 ring-2 ring-purple-500/20 shadow-2xl shadow-purple-500/10 relative overflow-hidden"
+                  : "hover:bg-white/5"
               }`}
             >
               {"highlighted" in tier && tier.highlighted && (
-                <span className="text-xs font-mono text-purple-400 mb-4 uppercase tracking-wider">
-                  {tPricing("mostPopular")}
-                </span>
+                <>
+                  <div className="absolute top-0 right-0 p-3">
+                    <div className="w-20 h-20 bg-purple-500/20 rounded-full blur-2xl absolute -top-10 -right-10 pointer-events-none" />
+                  </div>
+                  <span className="text-xs font-bold font-mono text-purple-400 mb-6 uppercase tracking-widest border border-purple-500/30 px-3 py-1 rounded-full w-fit bg-purple-500/10">
+                    {tPricing("mostPopular")}
+                  </span>
+                </>
               )}
-              <h3 className="text-xl font-bold mb-1">
+              <h3 className={`text-2xl font-bold mb-2 ${"highlighted" in tier && tier.highlighted ? "text-white" : "text-zinc-200"}`}>
                 {tPricing(tier.nameKey)}
               </h3>
               <div className="flex items-baseline gap-1 mb-2">
@@ -440,10 +445,10 @@ export default function WaitlistApp() {
               )}
               <button
                 onClick={handleJoinWaitlist}
-                className={`w-full py-3 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+                className={`w-full py-4 rounded-xl text-base font-bold transition-all duration-300 cursor-pointer ${
                   "highlighted" in tier && tier.highlighted
-                    ? "glow-button text-white"
-                    : "bg-white/5 border border-white/10 hover:bg-white/10 text-white"
+                    ? "glow-button text-white shadow-lg hover:shadow-purple-500/25"
+                    : "bg-white/5 border border-white/10 hover:bg-white/10 text-zinc-300 hover:text-white"
                 }`}
               >
                 {tPricing("joinWaitlist")}
@@ -514,18 +519,18 @@ export default function WaitlistApp() {
       {/* Modal Overlay System */}
       {modalVisible && stage !== "landing" && (
         <div
-          className="fixed inset-0 z-[100] modal-backdrop flex items-center justify-center p-4 animate-fade-in"
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 animate-fade-in"
           onClick={(e) => {
             if (e.target === e.currentTarget) handleCloseModal();
           }}
         >
           <div
-            className="glass-card w-full max-w-lg p-8 animate-slide-up relative"
+            className="glass-card w-full max-w-lg p-10 animate-slide-up relative shadow-2xl shadow-purple-500/10 border-white/10"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={handleCloseModal}
-              className="absolute top-4 right-4 text-zinc-600 hover:text-white transition-colors text-xl cursor-pointer"
+              className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors text-2xl cursor-pointer w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
               aria-label="Close"
             >
               &times;
