@@ -43,7 +43,7 @@ This project is designed for viral sharing among developers and tech enthusiasts
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/waitlist-ai.git
+    git clone https://github.com/kuhung/WaitlistAI.git
     ```
 2.  Install dependencies:
     ```bash
@@ -92,7 +92,7 @@ WaitlistAI 是一个充满黑色幽默的讽刺性网站，旨在调侃当前 AI
 
 1.  克隆项目：
     ```bash
-    git clone https://github.com/yourusername/waitlist-ai.git
+    git clone https://github.com/kuhung/WaitlistAI.git
     ```
 2.  安装依赖：
     ```bash
