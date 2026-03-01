@@ -1,7 +1,21 @@
 import type { NextConfig } from "next";
+import { execSync } from "child_process";
+
+let gitHash = "dev";
+let gitCommitCount = "0";
+try {
+  gitHash = execSync("git rev-parse --short HEAD").toString().trim();
+  gitCommitCount = execSync("git rev-list --count HEAD").toString().trim();
+} catch {
+  // fallback for builds without git
+}
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    NEXT_PUBLIC_GIT_HASH: gitHash,
+    NEXT_PUBLIC_GIT_COMMIT_COUNT: gitCommitCount,
+    NEXT_PUBLIC_BUILD_TIME: new Date().toISOString(),
+  },
 };
 
 export default nextConfig;
