@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 interface LeaderboardEntry {
   rank: number;
@@ -13,54 +15,21 @@ interface LeaderboardEntry {
 }
 
 const FAKE_NAMES = [
-  "anon_dev_42",
-  "gpt_refugee",
-  "waiting4agi",
-  "prompt_lord",
-  "tokenizer_9000",
-  "neural_nomad",
-  "gradient_ghost",
-  "epoch_wanderer",
-  "loss_function_larry",
-  "backprop_bob",
-  "attention_head_7",
-  "transformer_tourist",
-  "cuda_cowboy",
-  "tensor_nomad",
-  "softmax_sally",
-  "dropout_dave",
-  "batch_norm_betty",
-  "relu_rick",
-  "embeddings_earl",
-  "fine_tune_frank",
-  "zero_shot_zoe",
-  "few_shot_fred",
-  "chain_of_thought_chad",
-  "rlhf_rachel",
-  "hallucination_harry",
-  "context_window_carol",
-  "token_limit_tim",
-  "api_key_expired_alice",
-  "rate_limit_randy",
-  "model_collapsed_mike",
+  "anon_dev_42", "gpt_refugee", "waiting4agi", "prompt_lord",
+  "tokenizer_9000", "neural_nomad", "gradient_ghost", "epoch_wanderer",
+  "loss_function_larry", "backprop_bob", "attention_head_7",
+  "transformer_tourist", "cuda_cowboy", "tensor_nomad", "softmax_sally",
+  "dropout_dave", "batch_norm_betty", "relu_rick", "embeddings_earl",
+  "fine_tune_frank", "zero_shot_zoe", "few_shot_fred",
+  "chain_of_thought_chad", "rlhf_rachel", "hallucination_harry",
+  "context_window_carol", "token_limit_tim", "api_key_expired_alice",
+  "rate_limit_randy", "model_collapsed_mike",
 ];
 
 const REGIONS = [
-  "SF Bay Area",
-  "London",
-  "Bangalore",
-  "Berlin",
-  "Tokyo",
-  "Shanghai",
-  "Tel Aviv",
-  "Singapore",
-  "Toronto",
-  "Seoul",
-  "Sydney",
-  "Sao Paulo",
-  "Stockholm",
-  "Shenzhen",
-  "Amsterdam",
+  "SF Bay Area", "London", "Bangalore", "Berlin", "Tokyo",
+  "Shanghai", "Tel Aviv", "Singapore", "Toronto", "Seoul",
+  "Sydney", "Sao Paulo", "Stockholm", "Shenzhen", "Amsterdam",
 ];
 
 function generateEntries(): LeaderboardEntry[] {
@@ -82,6 +51,7 @@ function formatDuration(seconds: number): string {
 }
 
 export default function LeaderboardPage() {
+  const t = useTranslations("Leaderboard");
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [sortBy, setSortBy] = useState<"time" | "attempts" | "regression">(
     "time"
@@ -115,42 +85,40 @@ export default function LeaderboardPage() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
-      {/* Background */}
       <div className="fixed inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-[15%] left-[20%] w-[500px] h-[500px] bg-purple-600/8 rounded-full blur-[128px] animate-float" />
         <div className="absolute bottom-[20%] right-[15%] w-[400px] h-[400px] bg-blue-600/8 rounded-full blur-[128px] animate-float-delayed" />
       </div>
 
-      {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold gradient-text tracking-tight">
             WaitlistAI
           </Link>
-          <span className="text-xs text-zinc-600 font-mono">
-            Build {process.env.NEXT_PUBLIC_GIT_HASH || "dev"}
-          </span>
+          <div className="flex items-center gap-4">
+            <LanguageSwitcher />
+            <span className="text-xs text-zinc-600 font-mono">
+              Build {process.env.NEXT_PUBLIC_GIT_HASH || "dev"}
+            </span>
+          </div>
         </div>
       </nav>
 
-      {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 pt-28 pb-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Global Leaderboard</span>
+            <span className="gradient-text">{t("title")}</span>
           </h1>
           <p className="text-zinc-500 max-w-lg mx-auto">
-            A monument to human perseverance (or stubbornness). Ranked by who
-            has wasted the most time on this completely pointless waitlist.
+            {t("description")}
           </p>
         </div>
 
-        {/* Sort tabs */}
         <div className="flex gap-2 mb-6">
           {[
-            { key: "time" as const, label: "Time Wasted" },
-            { key: "attempts" as const, label: "Failed Attempts" },
-            { key: "regression" as const, label: "Queue Regression" },
+            { key: "time" as const, labelKey: "sortTime" as const },
+            { key: "attempts" as const, labelKey: "sortAttempts" as const },
+            { key: "regression" as const, labelKey: "sortRegression" as const },
           ].map((tab) => (
             <button
               key={tab.key}
@@ -161,23 +129,22 @@ export default function LeaderboardPage() {
                   : "bg-white/5 text-zinc-500 border border-white/5 hover:bg-white/10"
               }`}
             >
-              {tab.label}
+              {t(tab.labelKey)}
             </button>
           ))}
         </div>
 
-        {/* Table */}
         <div className="glass-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/5 text-xs text-zinc-500 uppercase tracking-wider">
-                  <th className="px-6 py-4 text-left">#</th>
-                  <th className="px-6 py-4 text-left">User</th>
-                  <th className="px-6 py-4 text-left">Region</th>
-                  <th className="px-6 py-4 text-right">Time Wasted</th>
-                  <th className="px-6 py-4 text-right">Failed Attempts</th>
-                  <th className="px-6 py-4 text-right">Queue Regression</th>
+                  <th className="px-6 py-4 text-left">{t("colRank")}</th>
+                  <th className="px-6 py-4 text-left">{t("colUser")}</th>
+                  <th className="px-6 py-4 text-left">{t("colRegion")}</th>
+                  <th className="px-6 py-4 text-right">{t("colTime")}</th>
+                  <th className="px-6 py-4 text-right">{t("colAttempts")}</th>
+                  <th className="px-6 py-4 text-right">{t("colRegression")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -227,29 +194,28 @@ export default function LeaderboardPage() {
           </div>
         </div>
 
-        {/* Stats footer */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
             {
-              label: "Total Time Wasted Globally",
+              labelKey: "totalTime" as const,
               value: `${Math.floor(entries.reduce((a, b) => a + b.timeWasted, 0) / 3600).toLocaleString()}h`,
             },
             {
-              label: "Total Failed Attempts",
+              labelKey: "totalAttempts" as const,
               value: entries
                 .reduce((a, b) => a + b.failedAttempts, 0)
                 .toLocaleString(),
             },
             {
-              label: "Avg. Queue Regression",
+              labelKey: "avgRegression" as const,
               value: `+${Math.floor(entries.reduce((a, b) => a + b.queueRegression, 0) / Math.max(entries.length, 1)).toLocaleString()}`,
             },
           ].map((stat) => (
-            <div key={stat.label} className="glass-card p-6 text-center">
+            <div key={stat.labelKey} className="glass-card p-6 text-center">
               <p className="text-2xl font-bold font-mono gradient-text mb-1">
                 {stat.value}
               </p>
-              <p className="text-xs text-zinc-600">{stat.label}</p>
+              <p className="text-xs text-zinc-600">{t(stat.labelKey)}</p>
             </div>
           ))}
         </div>
@@ -259,7 +225,7 @@ export default function LeaderboardPage() {
             href="/"
             className="inline-block px-6 py-3 rounded-lg glow-button text-white font-medium"
           >
-            &larr; Back to Waiting
+            {t("backToWaiting")}
           </Link>
         </div>
       </div>

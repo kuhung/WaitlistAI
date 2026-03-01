@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { execSync } from "child_process";
+import createNextIntlPlugin from "next-intl/plugin";
 
 let gitHash = "dev";
 let gitCommitCount = "0";
@@ -18,4 +19,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin();
+export default withNextIntl(nextConfig);
