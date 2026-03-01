@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -53,6 +54,9 @@ export async function generateMetadata({
       index: true,
       follow: true,
     },
+    other: {
+      "git-version": process.env.NEXT_PUBLIC_GIT_HASH || "unknown",
+    },
   };
 }
 
@@ -81,6 +85,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           {children}
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
