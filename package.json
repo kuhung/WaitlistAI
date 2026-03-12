@@ -6,14 +6,24 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "remotion:studio": "remotion studio",
+    "remotion:render:en": "remotion render WaitlistPromo-EN out/waitlist-promo-en.mp4",
+    "remotion:render:zh": "remotion render WaitlistPromo-ZH out/waitlist-promo-zh.mp4",
+    "remotion:render:all": "npm run remotion:render:en && npm run remotion:render:zh"
   },
   "dependencies": {
+    "@remotion/cli": "^4.0.434",
+    "@remotion/google-fonts": "^4.0.434",
+    "@remotion/transitions": "^4.0.434",
+    "@remotion/zod-types": "^4.0.434",
     "@vercel/analytics": "^1.6.1",
     "next": "16.1.6",
     "next-intl": "^4.8.3",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "remotion": "^4.0.434",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
